@@ -29,7 +29,7 @@ class _PortasState extends State<Portas> {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
           ),
-          itemCount: 9,
+          itemCount: 6,
           itemBuilder: (context, index) {
             int row = index ~/ 3;
             int col = index % 3;
