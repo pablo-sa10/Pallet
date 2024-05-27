@@ -54,7 +54,7 @@ class _CadastroState extends State<Cadastro> {
               DropdownButtonFormField(
                 decoration: InputDecoration(
                     labelText: "Escolha um tipo",
-                    labelStyle: TextStyle(fontSize: 20, color: Colors.white),
+                    labelStyle: const TextStyle(fontSize: 20, color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
@@ -68,7 +68,6 @@ class _CadastroState extends State<Cadastro> {
                   },
                 ).toList(),
                 onChanged: (newValue) {
-                  print(newValue);
                   setState(() {
                     if(newValue == "Ruas"){
                       enabled = false;
@@ -96,6 +95,7 @@ class _CadastroState extends State<Cadastro> {
                   if (enabled == true && (value == null || value.isEmpty)) {
                     return "Por favor, insira a quantidade de colunas";
                   }
+                  return null;
                 },
                 autofocus: true,
                 keyboardType: TextInputType.number,
@@ -120,6 +120,7 @@ class _CadastroState extends State<Cadastro> {
                   if (enabled == true && (value == null || value.isEmpty)) {
                     return "Por favor, insira a quantidade de andares";
                   }
+                  return null;
                 },
                 autofocus: true,
                 keyboardType: TextInputType.number,
@@ -139,7 +140,7 @@ class _CadastroState extends State<Cadastro> {
               DropdownButtonFormField(
                 decoration: InputDecoration(
                     labelText: "Escolha a Posição da Rua",
-                    labelStyle: TextStyle(fontSize: 20, color: Colors.white),
+                    labelStyle: const TextStyle(fontSize: 20, color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
@@ -175,14 +176,9 @@ class _CadastroState extends State<Cadastro> {
                     // ScaffoldMessenger.of(context).showSnackBar(
                     //   SnackBar(content: Text("Registro feito"))
                     // );
-                    print(_nomeController.text);
-                    print(_tipo);
-                    print(_qtdColunas.text);
-                    print(_qtdAndares.text);
-                    print(_posicao);
                   }
                 },
-                child: Text("Adicionar"),
+                child: const Text("Adicionar"),
               )
             ],
           ),
