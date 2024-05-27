@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pallets/components/botoes.dart';
 import 'package:pallets/components/portas.dart';
+import 'package:pallets/pages/cadastro.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -37,8 +38,15 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => onButtonAdd(context),
+          child: Icon(Icons.add),
+          backgroundColor: Colors.red,
+        ),
     );
   }
+
+  void onButtonAdd(BuildContext context){
+    Navigator.of(context).pushNamed("/Cadastro");
+  }
 }
-
-
