@@ -69,11 +69,12 @@ class _CadastroState extends State<Cadastro> {
                 ).toList(),
                 onChanged: (newValue) {
                   print(newValue);
-                  if(newValue == "Ruas"){
-                    enabled = false;
-                  }
-                  enabled = true;
                   setState(() {
+                    if(newValue == "Ruas"){
+                      enabled = false;
+                    }else{
+                      enabled = true;
+                    }
                     _tipo = newValue;
                   });
                 },
@@ -88,14 +89,11 @@ class _CadastroState extends State<Cadastro> {
                 height: 20,
               ),
               // Form Colunas
-              //_tipo == "Ruas" ? enabled = false : enabled = true,
-              // if(_tipo == "Ruas")
-              //   enabled = false,
               TextFormField(
                 enabled: enabled,
                 controller: _qtdColunas,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (enabled == true && (value == null || value.isEmpty)) {
                     return "Por favor, insira a quantidade de colunas";
                   }
                 },
@@ -116,9 +114,10 @@ class _CadastroState extends State<Cadastro> {
               ),
               //Form Andares
               TextFormField(
+                enabled: enabled,
                 controller: _qtdAndares,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (enabled == true && (value == null || value.isEmpty)) {
                     return "Por favor, insira a quantidade de andares";
                   }
                 },
