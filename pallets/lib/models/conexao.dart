@@ -3,7 +3,19 @@ import 'dart:convert';
 
 class Conexao{
 
-  Future<List<dynamic>> fetchData() async {
+  static Future<List<dynamic>> ultimosDadosPallets() async {
+    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php'));
+
+    if (response.statusCode == 200) {
+      // Decodificar os dados JSON
+      List<dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception('Falha ao carregar os dados');
+    }
+  }
+
+  static Future<List<dynamic>> ultimosDadosRuas() async {
     final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php'));
 
     if (response.statusCode == 200) {

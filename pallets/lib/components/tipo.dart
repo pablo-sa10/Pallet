@@ -1,15 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:pallets/models/conexao.dart';
 
-class Portas extends StatefulWidget {
-  final int portaSelecionada;
+class Tipos extends StatefulWidget {
+  final int tipoSelecionado;
 
-  const Portas({super.key, required this.portaSelecionada});
+  const Tipos({super.key, required this.tipoSelecionado});
 
   @override
-  State<Portas> createState() => _PortasState();
+  State<Tipos> createState() => _TiposState();
 }
 
-class _PortasState extends State<Portas> {
+class _TiposState extends State<Tipos> {
+  List dadosPallets = [];
+  int colunas = 0;
+  int itemCount = 0;
+
+  void initState() {
+    super.initState();
+    _ultimosDadosPallets();
+    _ultimosDadosRuas();
+  }
+
+  Future<void> _ultimosDadosPallets() async {
+    List dadosRecebidos = await Conexao.ultimosDadosPallets();
+    setState(() {
+      dadosPallets = dadosRecebidos.map((item){
+        return {
+          'end_id': int.parse(item['end_id']),
+          'end_nome': item['end_nome'],
+          'end_tipo': int.parse(item['end_tipo']),
+          'end_colunas': item['end_colunas'] != null ? int.parse(item['end_colunas']) : null,
+          'end_andar': item['end_andar'] != null ? int.parse(item['end_andar']) : null,
+          'end_posicao': item['end_posicao'] != null ? int.parse(item['end_posicao']) : null,
+        };
+      }).toList();
+      colunas = dadosPallets[0]['end_colunas'];
+      int andares = dadosPallets[0]['end_andar'];
+      itemCount = andares * colunas;
+    });
+    print(dadosRecebidos);
+    print('${colunas.runtimeType} $colunas');
+  }
+
+  Future<List> _ultimosDadosRuas() async{
+    List dadosRuas = await Conexao.ultimosDadosRuas();
+    return dadosRuas;
+  }
+
   final List<List<int>> posicoes = [
     [1, 0, 1, 0],
     [1, 0, 1, 1],
@@ -19,27 +56,27 @@ class _PortasState extends State<Portas> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: getPorta(widget.portaSelecionada));
+    return Expanded(child: getPorta(widget.tipoSelecionado));
   }
 
-  Widget getPorta(int porta) {
-    switch (porta) {
+  Widget getPorta(int tipo) {
+    switch (tipo) {
       case 1:
         return Column(
           children: [
-            Text(
+            const Text(
               "Porta Pallets com 3 Colunas e 2 Andares",
-              style: TextStyle(
-                fontSize: 20
-              ),
+              style: TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 50,),
+            const SizedBox(
+              height: 50,
+            ),
             Expanded(
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: colunas,
                 ),
-                itemCount: 6,
+                itemCount: itemCount,
                 itemBuilder: (context, index) {
                   int row = index ~/ 3;
                   int col = index % 3;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pallets/components/botoes.dart';
-import 'package:pallets/components/portas.dart';
-import 'package:pallets/pages/cadastro.dart';
+import 'package:pallets/components/tipo.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,11 +10,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int porta = 1;
+  int tipo = 1;
 
-  void mudarPorta(int portaSelecionada) {
+  void mudarTipo(int tipoSelecionado) {
     setState(() {
-      porta = portaSelecionada;
+      tipo = tipoSelecionado;
     });
   }
 
@@ -30,11 +29,11 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            Botoes(BotaoPressionado: mudarPorta),
+            Botoes(BotaoPressionado: mudarTipo),
             const SizedBox(
               height: 50,
             ),
-            Portas(portaSelecionada: porta),
+            Tipos(tipoSelecionado: tipo),
           ],
         ),
       ),

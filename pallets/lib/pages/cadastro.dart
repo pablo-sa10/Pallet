@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/conexao.dart';
 
 class Cadastro extends StatefulWidget {
+
   const Cadastro({super.key});
 
   @override
@@ -204,9 +205,8 @@ class _CadastroState extends State<Cadastro> {
     bool? sucesso = await Conexao.inserirDados(nome, tipo, colunas, andares, posicao);
 
     ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: sucesso == true ? Text("Registro feito com sucesso!") : Text("Erro ao inserir os dados!"))
+        SnackBar(content: sucesso == true ? const Text("Registro feito com sucesso!") : const Text("Erro ao inserir os dados!"))
     );
-
     Navigator.of(context).pop("/");
   }
 }
