@@ -13,12 +13,15 @@ class Tipos extends StatefulWidget {
 class _TiposState extends State<Tipos> {
   List dadosPallets = [];
   int colunas = 0;
+  int andares = 0;
   int itemCount = 0;
+  int end_id = 0;
 
   void initState() {
     super.initState();
     _ultimosDadosPallets();
     _ultimosDadosRuas();
+    _posicoesPreenchidasPallet();
   }
 
   Future<void> _ultimosDadosPallets() async {
@@ -35,11 +38,16 @@ class _TiposState extends State<Tipos> {
         };
       }).toList();
       colunas = dadosPallets[0]['end_colunas'];
-      int andares = dadosPallets[0]['end_andar'];
+      andares = dadosPallets[0]['end_andar'];
       itemCount = andares * colunas;
     });
     print(dadosRecebidos);
     print('${colunas.runtimeType} $colunas');
+  }
+
+  Future<List> _posicoesPreenchidasPallet() async{
+    List dados = await Conexao.posicoesPreenchidasPallet(end_id);
+    return dados;
   }
 
   Future<List> _ultimosDadosRuas() async{
@@ -64,8 +72,8 @@ class _TiposState extends State<Tipos> {
       case 1:
         return Column(
           children: [
-            const Text(
-              "Porta Pallets com 3 Colunas e 2 Andares",
+            Text(
+              "Porta Pallets com $colunas Colunas e $andares Andares",
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(
