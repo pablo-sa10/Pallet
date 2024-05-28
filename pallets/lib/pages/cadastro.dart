@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models/conexao.dart';
+
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
 
@@ -8,11 +10,13 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  bool enabled = true;
+
+  bool enabled = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nomeController = TextEditingController();
-  final TextEditingController _qtdColunas = TextEditingController();
-  final TextEditingController _qtdAndares = TextEditingController();
+  TextEditingController _qtdColunas = TextEditingController();
+  TextEditingController _qtdAndares = TextEditingController();
+  bool isRua = false;
   String? _tipo;
   dynamic _posicao;
 
@@ -35,7 +39,6 @@ class _CadastroState extends State<Cadastro> {
                   }
                   return null;
                 },
-                autofocus: true,
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
                   labelText: "Nome",
@@ -70,8 +73,13 @@ class _CadastroState extends State<Cadastro> {
                 onChanged: (newValue) {
                   setState(() {
                     if(newValue == "Ruas"){
+                      _qtdColunas.text = "";
+                      _qtdAndares.text = "";
                       enabled = false;
+                      isRua = true;
                     }else{
+                      isRua = false;
+                      _posicao = null;
                       enabled = true;
                     }
                     _tipo = newValue;
@@ -145,23 +153,23 @@ class _CadastroState extends State<Cadastro> {
                       borderRadius: BorderRadius.circular(10),
                     )),
                 value: _posicao,
-                items: <dynamic>[1, 2, "Nulo"].map(
-                  (dynamic value) {
+                items: <int>[1, 2].map(
+                  (int value) {
                     return DropdownMenuItem(
                       value: value,
                       child: Text("$value"),
                     );
                   },
                 ).toList(),
-                onChanged: (newValue) {
+                onChanged: isRua ? (newValue) {
                   setState(
                     () {
                       _posicao = newValue;
                     },
                   );
-                },
+                } : null,
                 validator: (value) {
-                  if (value == null) {
+                  if (isRua && value == null) {
                     return "Selecione uma opção";
                   }
                   return null;
@@ -173,17 +181,32 @@ class _CadastroState extends State<Cadastro> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text("Registro feito"))
-                    // );
+
+                    final nome = _nomeController.text;
+                    final tipo = _tipo;
+                    final qtdColunas = _qtdColunas.text;
+                    final qtdAndares = _qtdAndares.text;
+                    final posicao = _posicao;
+
+                    _inserirDados(nome, tipo, qtdColunas, qtdAndares, posicao);
+
                   }
                 },
                 child: const Text("Adicionar"),
-              )
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+  Future<void> _inserirDados(String nome, String? tipo, dynamic colunas, dynamic andares, dynamic posicao) async{
+    bool? sucesso = await Conexao.inserirDados(nome, tipo, colunas, andares, posicao);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: sucesso == true ? Text("Registro feito com sucesso!") : Text("Erro ao inserir os dados!"))
+    );
+
+    Navigator.of(context).pop("/");
   }
 }
