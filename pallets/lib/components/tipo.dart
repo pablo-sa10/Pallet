@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:pallets/components/portaPallets.dart';
+import 'package:pallets/components/ruas.dart';
 import 'package:pallets/models/conexao.dart';
 
 class Tipos extends StatefulWidget {
@@ -11,163 +14,140 @@ class Tipos extends StatefulWidget {
 }
 
 class _TiposState extends State<Tipos> {
-  List dadosPallets = [];
+  //pallets
+  List<Map<String, dynamic>> dadosPallets = [];
+  List<Map<String, dynamic>> posicoesPreenchidas = [];
+
+  //ruas
+  List<Map<String, dynamic>> dadosRuas = [];
+  int end_id_rua1 = 0;
+  int end_id_rua2 = 0;
+
+  //atributos do card externo
   int colunas = 0;
   int andares = 0;
   int itemCount = 0;
   int end_id = 0;
 
+  //atributos do card interno
+  int colunaInterna = 0;
+  int andarInterno = 0;
+  int posicoesOcupadas = 0;
+  int itemCountInterno = 0;
+  int ruaPosicao = 0;
+
   void initState() {
     super.initState();
-    _ultimosDadosPallets();
-    _ultimosDadosRuas();
-    _posicoesPreenchidasPallet();
+    _loadData();
+  }
+
+  Future<void>_loadData() async{
+    await _ultimosDadosPallets();
+    if(end_id > 0){
+      await _posicoesPreenchidasPallet(end_id);
+    }
+    await _ultimosDadosRuas();
+    await _posicoesPreenchidasRua(end_id_rua1, end_id_rua2);
   }
 
   Future<void> _ultimosDadosPallets() async {
     List dadosRecebidos = await Conexao.ultimosDadosPallets();
-    setState(() {
-      dadosPallets = dadosRecebidos.map((item){
+    print(dadosRecebidos);
+
+      List<Map<String, dynamic>> converteData = dadosRecebidos.map((item) {
         return {
           'end_id': int.parse(item['end_id']),
           'end_nome': item['end_nome'],
           'end_tipo': int.parse(item['end_tipo']),
-          'end_colunas': item['end_colunas'] != null ? int.parse(item['end_colunas']) : null,
-          'end_andar': item['end_andar'] != null ? int.parse(item['end_andar']) : null,
-          'end_posicao': item['end_posicao'] != null ? int.parse(item['end_posicao']) : null,
+          'end_colunas': item['end_colunas'] != null
+              ? int.parse(item['end_colunas'])
+              : null,
+          'end_andar':
+              item['end_andar'] != null ? int.parse(item['end_andar']) : null,
+          'end_posicao': item['end_posicao'] != null
+              ? int.parse(item['end_posicao'])
+              : null,
         };
       }).toList();
-      colunas = dadosPallets[0]['end_colunas'];
-      andares = dadosPallets[0]['end_andar'];
-      itemCount = andares * colunas;
-    });
-    print(dadosRecebidos);
-    print('${colunas.runtimeType} $colunas');
+      setState(() {
+        dadosPallets = converteData;
+        if(dadosPallets.isNotEmpty){
+          colunas = dadosPallets[0]['end_colunas'];
+          andares = dadosPallets[0]['end_andar'];
+          itemCount = andares * colunas;
+          end_id = dadosPallets[0]['end_id'];
+        }
+      });
   }
 
-  Future<List> _posicoesPreenchidasPallet() async{
+  Future<void> _posicoesPreenchidasPallet(int end_id) async {
     List dados = await Conexao.posicoesPreenchidasPallet(end_id);
-    return dados;
+    print(dados);
+
+      List<Map<String, dynamic>>converteData = dados.map((item) {
+        return {
+          'esp_id': int.parse(item['esp_id']),
+          'end_id': int.parse(item['end_id']),
+          'esp_tipo': int.parse(item['esp_tipo']),
+          'esp_coluna':
+              item['esp_coluna'] != null ? int.parse(item['esp_coluna']) : null,
+          'esp_andar':
+              item['esp_andar'] != null ? int.parse(item['esp_andar']) : null,
+          'esp_posicao_porta': item['esp_posicao_porta'] != null
+              ? int.parse(item['esp_posicao_porta'])
+              : null,
+          'esp_posicao_rua': item['esp_posicao_rua'] != null
+              ? int.parse(item['esp_posicao_rua'])
+              : null,
+        };
+      }).toList();
+
+      setState(() {
+        dados = converteData;
+        colunaInterna = dados[0]['esp_coluna'];
+        andarInterno = dados[0]['esp_andar'];
+        itemCountInterno = colunaInterna * andarInterno;
+        posicoesOcupadas = dados[0]['esp_posicao_porta'];
+      });
   }
 
-  Future<List> _ultimosDadosRuas() async{
+  Future<void> _ultimosDadosRuas() async {
     List dadosRuas = await Conexao.ultimosDadosRuas();
-    return dadosRuas;
+    List<Map<String, dynamic>>converter = dadosRuas.map((item){
+      return{
+        'end_id': int.parse(item['end_id']),
+      };
+    }).toList();
+    setState(() {
+      dadosRuas = converter;
+      if(dadosRuas[0]['posicao'] == "1"){
+        end_id_rua1 = dadosRuas[0]['end_id'];
+        end_id_rua2 = dadosRuas[1]['end_id'];
+      }else{
+        end_id_rua1 = dadosRuas[1]['end_id'];
+        end_id_rua2 = dadosRuas[0]['end_id'];
+      }
+    });
+    print(dadosRuas);
   }
 
-  final List<List<int>> posicoes = [
-    [1, 0, 1, 0],
-    [1, 0, 1, 1],
-    [1, 0, 0, 0],
-    [1, 1, 1, 0],
-  ];
+  Future<void> _posicoesPreenchidasRua(int end_rua1, int end_rua2) async{
+    List dados = await Conexao.posicoesPreenchidasRua(end_id_rua1, end_id_rua2);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: getPorta(widget.tipoSelecionado));
+    return Expanded(child: getTipo(widget.tipoSelecionado));
   }
 
-  Widget getPorta(int tipo) {
+  Widget getTipo(int tipo) {
     switch (tipo) {
       case 1:
-        return Column(
-          children: [
-            Text(
-              "Porta Pallets com $colunas Colunas e $andares Andares",
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: colunas,
-                ),
-                itemCount: itemCount,
-                itemBuilder: (context, index) {
-                  int row = index ~/ 3;
-                  int col = index % 3;
-                  bool cardExternoPreenchido =
-                      posicoes.any((pos) => pos[0] == row && pos[1] == col);
-                  return Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.amber, width: 1)),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemCount: 4,
-                      itemBuilder: (context, subIndex) {
-                        int subRow = subIndex ~/ 2;
-                        int subCol = subIndex % 2;
-                        bool cardInternoPreenchido = posicoes.any((pos) =>
-                            pos[0] == row &&
-                            pos[1] == col &&
-                            pos[2] == subRow &&
-                            pos[3] == subCol);
-                        return Card(
-                          //elevation: 4,
-                          child: PosicaoPalletsPreenchidas(
-                            row: row,
-                            col: col,
-                            subRow: subRow,
-                            subCol: subCol,
-                            cardExternoPreenchido: cardExternoPreenchido,
-                            cardInternoPreenchido: cardInternoPreenchido,
-                          ),
-                        );
-                      },
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        );
+        return Portapallets(colunas: colunas, andares: andares, itemCount: itemCount, end_id: end_id);
 
       default:
-        return const Text("Selcione alguma coisa");
+        return Ruas(posicaoRua1: [1], posicaoRua2: [2],);
     }
   }
 }
 
-class PosicaoPalletsPreenchidas extends StatelessWidget {
-  final int row;
-  final int col;
-  final int subRow;
-  final int subCol;
-  final bool cardExternoPreenchido;
-  final bool cardInternoPreenchido;
-
-  const PosicaoPalletsPreenchidas(
-      {super.key,
-      required this.row,
-      required this.col,
-      required this.subRow,
-      required this.subCol,
-      required this.cardExternoPreenchido,
-      required this.cardInternoPreenchido});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: cardInternoPreenchido ? Colors.red : Colors.green,
-        //border: Border.all(color: Colors.amber, width: 2),
-      ),
-      // child: Center(
-      //   child: Column(
-      //     children: [
-      //       Text('index: $index', style: const TextStyle(fontSize: 20)),
-      //       Text('linha: $row', style: const TextStyle(fontSize: 20)),
-      //       Text('coluna: $col', style: const TextStyle(fontSize: 20)),
-      //     ],
-      //   ),
-      // ),
-    );
-  }
-}

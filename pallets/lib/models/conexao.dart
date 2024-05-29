@@ -4,11 +4,10 @@ import 'dart:convert';
 class Conexao{
 
   static Future<List<dynamic>> ultimosDadosPallets() async {
-    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php'));
-
+    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php?action=obterDados'));
     if (response.statusCode == 200) {
       // Decodificar os dados JSON
-      List<dynamic> data = json.decode(response.body);
+      List data = json.decode(response.body);
       return data;
     } else {
       throw Exception('Falha ao carregar os dados');
@@ -16,7 +15,7 @@ class Conexao{
   }
 
   static Future<List<dynamic>> posicoesPreenchidasPallet(int end_id) async{
-    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php'));
+    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php?action=posicoesPreenchidas&end_id=$end_id'));
 
     if (response.statusCode == 200) {
       // Decodificar os dados JSON
@@ -28,7 +27,8 @@ class Conexao{
   }
 
   static Future<List<dynamic>> ultimosDadosRuas() async {
-    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php'));
+    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php?action=ultimosDadosRua'));
+    print(response.body);
 
     if (response.statusCode == 200) {
       // Decodificar os dados JSON
@@ -37,6 +37,12 @@ class Conexao{
     } else {
       throw Exception('Falha ao carregar os dados');
     }
+  }
+
+  static Future<List<dynamic>>posicoesPreenchidasRua(int end_id_rua1, int end_id_rua2) async{
+    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php?action=posicoesPreenchidasRuas'));
+    return [];
+    print(response.body);
   }
 
   static Future<bool?> inserirDados(String nome, String? tipo, dynamic colunas, dynamic andares, dynamic posicao) async{
