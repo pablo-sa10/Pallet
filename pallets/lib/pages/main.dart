@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pallets/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'Home.dart';
 import 'cadastro.dart';
 
 Future<void> main() async {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => ThemeProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,15 +15,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Pallets',
-      theme: ThemeData.dark(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Home(),
-        "/Cadastro": (context) => const Cadastro(),
-      },
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Pallets',
+          theme: themeProvider.isDarkTheme ? ThemeData.dark() : ThemeData.light(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const Home(),
+            "/Cadastro": (context) => const Cadastro(),
+          },
+        );
+      }
     );
   }
 }

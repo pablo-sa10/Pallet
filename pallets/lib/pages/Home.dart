@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pallets/components/botoes.dart';
 import 'package:pallets/components/tipo.dart';
+import 'package:pallets/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,6 +24,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+          }, icon: Icon(Icons.brightness_6)),
+        ],
         title: const Text("Pallets Teste"),
         centerTitle: true,
       ),
