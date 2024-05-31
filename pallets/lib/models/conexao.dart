@@ -40,9 +40,15 @@ class Conexao{
   }
 
   static Future<List<dynamic>>posicoesPreenchidasRua(int end_id_rua1, int end_id_rua2) async{
-    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php?action=posicoesPreenchidasRuas'));
-    return [];
-    print(response.body);
+    final response = await http.get(Uri.parse('http://10.10.2.173/taramps/models/dados.php?action=posicoesPreenchidasRuas&end_id1=$end_id_rua1&end_id2=$end_id_rua2'));
+
+    if (response.statusCode == 200) {
+      // Decodificar os dados JSON
+      List<dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception('Falha ao carregar os dados');
+    }
   }
 
   static Future<bool?> inserirDados(String nome, String? tipo, dynamic colunas, dynamic andares, dynamic posicao) async{

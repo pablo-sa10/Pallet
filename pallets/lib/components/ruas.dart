@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Ruas extends StatefulWidget {
@@ -15,13 +14,13 @@ class _RuasState extends State<Ruas> {
   Widget build(BuildContext context) {
     return PageView(
       children: [
-        for(int i = 1; i < 3; i++)
+        for(int i = 0; i < 2; i++)
         Padding(
           padding: const EdgeInsets.all(6.0),
           child: Column(
             children: [
               Text(
-                "Rua $i",
+                "Rua ${i + 1}",
                 style: TextStyle(fontSize: 25),
               ),
               const SizedBox(height: 50,),
@@ -34,11 +33,13 @@ class _RuasState extends State<Ruas> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    for(int i = 1; i < 5; i++)
+                    for(int j = 0; j < 5; j++)
                       Container(
-                        color: Colors.green,
-                        width: 100,
-                        height: 100,
+                        color: (i == 0 && widget.posicaoRua1.any((item) => item['esp_posicao_rua'] == j)) ||
+                        (i == 1 && widget.posicaoRua2.any((item) => item['esp_posicao_rua'] == j)) ? Colors.red : Colors.green,
+                        //color: Colors.green,
+                        width: 70,
+                        height: 70,
                       ),
                   ],
                 ),

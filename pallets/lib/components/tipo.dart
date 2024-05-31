@@ -20,6 +20,8 @@ class _TiposState extends State<Tipos> {
 
   //ruas
   List<Map<String, dynamic>> dadosRuas = [];
+  List<Map<String, dynamic>>list1 = [];
+  List<Map<String, dynamic>>list2 = [];
   int end_id_rua1 = 0;
   int end_id_rua2 = 0;
 
@@ -120,7 +122,7 @@ class _TiposState extends State<Tipos> {
     }).toList();
     setState(() {
       dadosRuas = converter;
-      if(dadosRuas[0]['posicao'] == "1"){
+      if(dadosRuas[0]['end_posicao'] == "1"){
         end_id_rua1 = dadosRuas[0]['end_id'];
         end_id_rua2 = dadosRuas[1]['end_id'];
       }else{
@@ -133,6 +135,29 @@ class _TiposState extends State<Tipos> {
 
   Future<void> _posicoesPreenchidasRua(int end_rua1, int end_rua2) async{
     List dados = await Conexao.posicoesPreenchidasRua(end_id_rua1, end_id_rua2);
+
+    List<Map<String, dynamic>>converter = dados.map((item){
+      return{
+        'end_id': int.parse(item['end_id']),
+        'esp_posicao_rua': int.parse(item['esp_posicao_rua']),
+      };
+    }).toList();
+    setState(() {
+      print('dados $dados');
+      dadosRuas = converter;
+      Set<int> id = dadosRuas.map((item) => item['end_id'] as int).toSet();
+      List<int> idList = id.toList();
+
+      list1 = extrair(dadosRuas, idList[0]);
+      list2 = extrair(dadosRuas, idList[1]);
+
+      print(list1);
+      print(list2);
+    });
+  }
+
+  List<Map<String, dynamic>>extrair(List<Map<String, dynamic>> dados, int end_id){
+    return dados.where((item) => item['end_id'] == end_id).toList();
   }
 
   @override
@@ -146,7 +171,7 @@ class _TiposState extends State<Tipos> {
         return Portapallets(colunas: colunas, andares: andares, itemCount: itemCount, end_id: end_id);
 
       default:
-        return Ruas(posicaoRua1: [1], posicaoRua2: [2],);
+        return Ruas(posicaoRua1: list1, posicaoRua2: list2);
     }
   }
 }

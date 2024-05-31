@@ -25,6 +25,9 @@ class _HomeState extends State<Home> {
         title: const Text("Pallets Teste"),
         centerTitle: true,
       ),
+      drawer: Drawer(
+
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
