@@ -1,15 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pallets/models/authentic.dart';
 import 'package:pallets/pages/configuracoes.dart';
 import 'package:pallets/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../theme/app_theme.dart';
-import '../theme/theme_google.dart';
 import 'home.dart';
 import 'cadastro.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   //busca o ultimo tema salvo pelo usuario
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -17,10 +19,18 @@ Future<void> main() async {
 
   ThemeProvider themeProvider = ThemeProvider(isDark);
   runApp(
-    ChangeNotifierProvider.value(
-      value: themeProvider,
-      child: const MyApp(),
-    ),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: themeProvider),
+          //ChangeNotifierProvider(create: (context) => ThemeProvider(isDark)),
+          ChangeNotifierProvider(create: (context) => AuthService()),
+        ],
+        child: MyApp(),
+      )
+    // ChangeNotifierProvider.value(
+    //   value: themeProvider,
+    //   child: const MyApp(),
+    // ),
   );
 }
 
@@ -34,11 +44,13 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Pallets',
-        theme: themeProvider.isDarkTheme ? AppTheme.darkTheme : AppTheme.lightTheme,
+        theme: themeProvider.isDarkTheme ? AppTheme.darkTheme : AppTheme
+            .lightTheme,
         //theme: themeProvider.isDarkTheme ? MaterialTheme.darkScheme() : AppTheme.lightTheme,
         initialRoute: '/',
         routes: {
           '/': (context) => const Home(),
+          //'/Login': (context) const =>
           "/Cadastro": (context) => const Cadastro(),
           "/Config": (context) => const Configuracoes(),
         },
