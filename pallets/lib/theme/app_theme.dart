@@ -7,10 +7,10 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.backgroundColor,
         titleTextStyle: TextStyle(
-            color: AppColors.textoBranco,
+            color: AppColors.textoPreto,
             fontSize: 24,
             fontWeight: FontWeight.bold),
-        iconTheme: IconThemeData(color: AppColors.textoBranco)),
+        iconTheme: IconThemeData(color: AppColors.textoPreto)),
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
           fontSize: 24,
@@ -24,18 +24,18 @@ class AppTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: AppColors.vermelhoTaramps,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.backgroundColor),
+        backgroundColor: AppColors.vermelhoTaramps),
     iconTheme: const IconThemeData(color: AppColors.textoPreto),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: AppColors.vermelhoTaramps,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
@@ -45,9 +45,9 @@ class AppTheme {
 
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: AppColors.primaryColor,
+    primaryColor: AppColors.primaryColorDark,
     appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: AppColors.backgroundColorDark,
         titleTextStyle: TextStyle(
             color: AppColors.textoBranco,
             fontSize: 24,
@@ -65,18 +65,18 @@ class AppTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: AppColors.vermelhoTaramps,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: AppColors.backgroundColor),
+        backgroundColor: AppColors.vermelhoTaramps),
     iconTheme: const IconThemeData(color: AppColors.textoBranco),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: AppColors.vermelhoTaramps,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),

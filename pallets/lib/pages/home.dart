@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
       ),
       drawer: DrawerPage(),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.fromLTRB(10.0, 50, 10, 10),
         child: Column(
           children: [
             Botoes(BotaoPressionado: mudarTipo),
