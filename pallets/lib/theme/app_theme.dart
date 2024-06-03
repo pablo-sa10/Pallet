@@ -20,6 +20,7 @@ class AppTheme {
       headlineSmall: TextStyle(fontSize: 16, color: AppColors.textoPreto),
       titleSmall: TextStyle(fontSize: 24, color: AppColors.textoPreto),
       titleMedium: TextStyle(fontSize: 20, color: AppColors.textoPreto),
+      bodySmall: TextStyle(fontSize: 16, color: AppColors.textoPreto),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(

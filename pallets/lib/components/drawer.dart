@@ -39,13 +39,6 @@ class _DrawerPageState extends State<DrawerPage> {
             textAlign: TextAlign.center,
           ),
           onTap: (){},
-        ),ListTile(
-          leading: Icon(Icons.person),
-          title: Text(
-            "Teste",
-            textAlign: TextAlign.center,
-          ),
-          onTap: (){},
         ),
         ListTile(
           leading: Icon(Icons.settings),
