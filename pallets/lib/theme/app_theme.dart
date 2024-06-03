@@ -16,7 +16,10 @@ class AppTheme {
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: AppColors.textoPreto),
-      headlineMedium: TextStyle(fontSize: 16, color: AppColors.textoPreto),
+      headlineMedium: TextStyle(fontSize: 20, color: AppColors.textoPreto),
+      headlineSmall: TextStyle(fontSize: 16, color: AppColors.textoPreto),
+      titleSmall: TextStyle(fontSize: 24, color: AppColors.textoPreto),
+      titleMedium: TextStyle(fontSize: 20, color: AppColors.textoPreto),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -54,7 +57,10 @@ class AppTheme {
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: AppColors.textoBranco),
-      headlineMedium: TextStyle(fontSize: 16, color: AppColors.textoBranco),
+      headlineMedium: TextStyle(fontSize: 20, color: AppColors.textoBranco),
+      headlineSmall: TextStyle(fontSize: 16, color: AppColors.textoBranco),
+      titleSmall: TextStyle(fontSize: 24, color: AppColors.textoBranco),
+      titleMedium: TextStyle(fontSize: 20, color: AppColors.textoBranco),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(

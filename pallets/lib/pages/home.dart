@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pallets/components/botoes.dart';
+import 'package:pallets/components/drawer.dart';
 import 'package:pallets/components/tipo.dart';
 import 'package:pallets/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -24,17 +25,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(onPressed: (){
-            Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
-          }, icon: Icon(Icons.brightness_6)),
-        ],
+        // actions: [
+        //   IconButton(onPressed: (){
+        //     Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+        //   }, icon: Icon(Icons.brightness_6)),
+        // ],
         title: const Text("Pallets Teste"),
         centerTitle: true,
       ),
-      drawer: Drawer(
-
-      ),
+      drawer: DrawerPage(),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
