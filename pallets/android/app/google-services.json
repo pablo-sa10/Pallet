@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068975401715",
+    "project_id": "login-authentic1001",
+    "storage_bucket": "login-authentic1001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068975401715:android:475aa044b99666e8c26586",
+        "android_client_info": {
+          "package_name": "com.example.pallets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpBF5KgbzBTjj0p_Ro9Qkgo463LpldoyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
