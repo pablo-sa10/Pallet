@@ -3,7 +3,7 @@ import 'app_colors.dart';
 
 class AppTheme {
   static final ThemeData lightTheme = ThemeData(
-    primaryColor: AppColors.primaryColor,
+    primaryColor: AppColors.primaryColorDark,
     appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.backgroundColor,
         titleTextStyle: TextStyle(
@@ -45,7 +45,7 @@ class AppTheme {
 
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: AppColors.primaryColorDark,
+    primaryColor: AppColors.primaryColor,
     appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.backgroundColorDark,
         titleTextStyle: TextStyle(
