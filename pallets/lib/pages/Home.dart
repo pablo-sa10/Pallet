@@ -49,8 +49,7 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => onButtonAdd(context),
-          child: Icon(Icons.add),
-          backgroundColor: Colors.red,
+          child: Icon(Icons.add, color: Colors.white,),
         ),
     );
   }

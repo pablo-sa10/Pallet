@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pallets/theme/app_colors.dart';
 
 import '../models/conexao.dart';
 
@@ -45,7 +46,6 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Nome",
                   labelStyle: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -58,7 +58,7 @@ class _CadastroState extends State<Cadastro> {
               DropdownButtonFormField(
                 decoration: InputDecoration(
                     labelText: "Escolha um tipo",
-                    labelStyle: const TextStyle(fontSize: 20, color: Colors.white),
+                    labelStyle: const TextStyle(fontSize: 20),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
@@ -112,7 +112,6 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Quantidade de Colunas",
                   labelStyle: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -137,7 +136,6 @@ class _CadastroState extends State<Cadastro> {
                   labelText: "Quantidade de Andares",
                   labelStyle: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -149,7 +147,7 @@ class _CadastroState extends State<Cadastro> {
               DropdownButtonFormField(
                 decoration: InputDecoration(
                     labelText: "Escolha a Posição da Rua",
-                    labelStyle: const TextStyle(fontSize: 20, color: Colors.white),
+                    labelStyle: const TextStyle(fontSize: 20),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
@@ -190,10 +188,9 @@ class _CadastroState extends State<Cadastro> {
                     final posicao = _posicao;
 
                     _inserirDados(nome, tipo, qtdColunas, qtdAndares, posicao);
-
                   }
                 },
-                child: const Text("Adicionar"),
+                child: const Text("Adicionar", style: TextStyle(color: AppColors.textoBranco),),
               ),
             ],
           ),

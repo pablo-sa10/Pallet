@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pallets/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../theme/app_theme.dart';
 import 'Home.dart';
 import 'cadastro.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //busca o ultimo tema salvo pelo usuario
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isDark = prefs.getBool('isDarkTheme') ?? false;
 
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Pallets',
-        theme: themeProvider.isDarkTheme ? ThemeData.dark() : ThemeData.light(),
+        theme: themeProvider.isDarkTheme ? AppTheme.darkTheme : AppTheme.lightTheme,
         initialRoute: '/',
         routes: {
           '/': (context) => const Home(),
