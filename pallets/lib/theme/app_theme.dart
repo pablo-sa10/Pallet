@@ -21,6 +21,7 @@ class AppTheme {
       titleSmall: TextStyle(fontSize: 24, color: AppColors.textoPreto),
       titleMedium: TextStyle(fontSize: 20, color: AppColors.textoPreto),
       bodySmall: TextStyle(fontSize: 16, color: AppColors.textoPreto),
+      bodyMedium: TextStyle(fontSize: 20, color: AppColors.textoPreto),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -41,6 +42,9 @@ class AppTheme {
         ),
       ),
     ),
+    // snackBarTheme: SnackBarThemeData(
+    //   backgroundColor: AppColors.textoPreto
+    // )
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -60,8 +64,10 @@ class AppTheme {
           color: AppColors.textoBranco),
       headlineMedium: TextStyle(fontSize: 20, color: AppColors.textoBranco),
       headlineSmall: TextStyle(fontSize: 16, color: AppColors.textoBranco),
-      titleSmall: TextStyle(fontSize: 24, color: AppColors.textoBranco),
+      titleSmall: TextStyle(fontSize: 16, color: AppColors.textoBranco),
       titleMedium: TextStyle(fontSize: 20, color: AppColors.textoBranco),
+      bodyMedium: TextStyle(fontSize: 20, color: AppColors. textoBranco),
+      bodySmall: TextStyle(fontSize: 16, color: AppColors. textoBranco),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -82,5 +88,8 @@ class AppTheme {
         ),
       ),
     ),
+      // snackBarTheme: SnackBarThemeData(
+      //     backgroundColor: AppColors.textoBranco
+      // )
   );
 }

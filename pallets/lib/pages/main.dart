@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pallets/components/auth_check.dart';
 import 'package:pallets/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:pallets/models/authentic.dart';
 import 'package:pallets/pages/configuracoes.dart';
+import 'package:pallets/pages/login.dart';
 import 'package:pallets/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,12 +53,14 @@ class MyApp extends StatelessWidget {
         theme: themeProvider.isDarkTheme ? AppTheme.darkTheme : AppTheme
             .lightTheme,
         //theme: themeProvider.isDarkTheme ? MaterialTheme.darkScheme() : AppTheme.lightTheme,
-        initialRoute: '/',
+        initialRoute: '/AuthCheck',
         routes: {
           '/': (context) => const Home(),
           //'/Login': (context) const =>
           "/Cadastro": (context) => const Cadastro(),
           "/Config": (context) => const Configuracoes(),
+          "/Login": (context) => const Login(),
+          "/AuthCheck": (context) => const AuthCheck(),
         },
       );
     });

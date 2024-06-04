@@ -60,3 +60,8 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    implementation 'com.google.firebase:firebase-auth:21.0.6'
+    // Adicione a dependência do Firebase Auth
+}

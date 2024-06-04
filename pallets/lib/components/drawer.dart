@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pallets/models/authentic.dart';
 import 'package:pallets/pages/configuracoes.dart';
 import 'package:pallets/theme/app_colors.dart';
 import 'package:pallets/theme/app_theme.dart';
@@ -62,7 +63,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 : AppTheme.lightTheme.textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
-          onTap: (){},
+          onTap: () => context.read<AuthService>().logout(),
         ),
       ]),
     );
